@@ -48,7 +48,7 @@
     dataType: "json",
     data: imageData,
     success: function(data) {
-	alert('asdfasdf');
+	
         //success handling
     },
     error: function(data) {
@@ -96,23 +96,24 @@
     }
     function test()
 	{
-	
-	 $.ajax({
-    type: 'POST',
-    contentType: 'application/json',
-    url: "http://roman.almic.ee/echo/index.php",
-    dataType: "json",
-    data: imageURI,
-    success: function(data) {
-    alert('asdfasdf');
+$.ajax({
+    type       : "POST",
+    url        : "http://roman.almic.ee/echo",
+    crossDomain: true,
+ 
+    data       : {username : 'subin', password : 'passwordx'},
+    dataType   : 'json',
+    success    : function(response) {
+        //console.error(JSON.stringify(response));
+        alert('Works!');
     },
-    error: function(data) {
-        //error handling
+    error      : function() {
+        //console.error("error");
+        alert('Now working!');                  
     }
-});
+});     
 	}
-    // A button will call this function
-    //
+   
 
     function onFail(message) {
       alert('Failed because: ' + message);
