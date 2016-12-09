@@ -5,118 +5,46 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript">  
+function uploadFromGallery() {
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value 
-	
-    // Wait for PhoneGap to connect with the device
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
-    // PhoneGap is ready to be used!
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
-    // Called when a photo is successfully retrieved
-    //
-   
-	// Called when a photo is successfully retrieved
-    //
-    function onPhotoFileSuccess(imageData) {
-      // Get image handle
-      console.log(JSON.stringify(imageData));
-      
-   	  // Get image handle
-      //
-      var largeImage = document.getElementById('smallImage');
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageData;
-	  
-		  $.ajax({
-    type       : "POST",
-    url        : "http://roman.almic.ee/echo/index.php",
-    crossDomain: true,
-    data       : {username : imageData},
-    dataType   : 'json',
-    success    : function(response) {
-    },
-    error      : function() {
-                      
-    }
-});  
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(uploadPhoto,
+                                function(message) { alert('get picture failed'); },
+                                { quality: 50, 
+                                destinationType: navigator.camera.DestinationType.FILE_URI,
+                                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+                                );
 
-    }
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
-      // console.log(imageURI);
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-	  
-	  $.ajax({
-    type       : "POST",
-    url        : "http://roman.almic.ee/echo/index.php",
-    crossDomain: true,
-    data       : {username : imageURI},
-    dataType   : 'json',
-    success    : function(response) {
-    },
-    error      : function() {
-                      
-    }
-});  
+}
 
-    }
-    // A button will call this function
-    //
-   
-    function capturePhotoWithFile() {
-        navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
-    }
-    function test()
-	{
-$.ajax({
-    type       : "POST",
-    url        : "http://roman.almic.ee/echo/index.php",
-    crossDomain: true,
-    data       : {username : 'subin', password : 'passwordx'},
-    dataType   : 'json',
-    success    : function(response) {
-    },
-    error      : function() {
-                      
-    }
-});     
-	}
-   
+function uploadPhoto(imageURI) {
+    var options = new FileUploadOptions();
+    options.fileKey="file";
+    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.png';
+    options.mimeType="text/plain";
 
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-    </script>
-  </head>
-  <body>
-   
-    <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
-	 <button onclick="test();">Casd</button> <br>
+    var params = new Object();
 
-   
-    <img style="display:none;" id="largeImage" src="" />
-  </body>
-</html>
+    options.params = params;
+
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
+}
+
+function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+</script>
+</head>
+<body>
+   <a data-role="button" onClick="uploadFromGallery();">Upload from Gallery</a> 
+</body>
