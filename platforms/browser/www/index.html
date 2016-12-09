@@ -4,7 +4,7 @@
     <title>Capture Photo</title>
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-	 <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+	 <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8">
 
     var pictureSource;   // picture source
@@ -44,10 +44,11 @@
 	  $.ajax({
     type: 'POST',
     contentType: 'application/json',
-    url: "http://roman.almic.ee/echo",
+    url: "http://roman.almic.ee/echo/index.php",
     dataType: "json",
     data: imageData,
     success: function(data) {
+	alert('asdfasdf');
         //success handling
     },
     error: function(data) {
@@ -75,11 +76,11 @@
 	  	  $.ajax({
     type: 'POST',
     contentType: 'application/json',
-    url: "http://roman.almic.ee/echo",
+    url: "http://roman.almic.ee/echo/index.php",
     dataType: "json",
     data: imageURI,
     success: function(data) {
-        //success handling
+    alert('asdfasdf');
     },
     error: function(data) {
         //error handling
@@ -93,7 +94,23 @@
     function capturePhotoWithFile() {
         navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
     }
-    
+    function test()
+	{
+	
+	 $.ajax({
+    type: 'POST',
+    contentType: 'application/json',
+    url: "http://roman.almic.ee/echo/index.php",
+    dataType: "json",
+    data: imageURI,
+    success: function(data) {
+    alert('asdfasdf');
+    },
+    error: function(data) {
+        //error handling
+    }
+});
+	}
     // A button will call this function
     //
 
@@ -105,6 +122,7 @@
   <body>
    
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+	 <button onclick="test();">Casd</button> <br>
 
    
     <img style="display:none;" id="largeImage" src="" />
