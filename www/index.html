@@ -39,22 +39,18 @@
       //
       largeImage.src = imageData;
 	  
-	
-	  
-	  $.ajax({
-    type: 'POST',
-    contentType: 'application/json',
-    url: "http://roman.almic.ee/echo/index.php",
-    dataType: "json",
-    data: imageData,
-    success: function(data) {
-	
-        //success handling
+		  $.ajax({
+    type       : "POST",
+    url        : "http://roman.almic.ee/echo/index.php",
+    crossDomain: true,
+    data       : {username : imageData},
+    dataType   : 'json',
+    success    : function(response) {
     },
-    error: function(data) {
-        //error handling
+    error      : function() {
+                      
     }
-});
+});  
 
     }
     // Called when a photo is successfully retrieved
@@ -73,19 +69,18 @@
       //
       largeImage.src = imageURI;
 	  
-	  	  $.ajax({
-    type: 'POST',
-    contentType: 'application/json',
-    url: "http://roman.almic.ee/echo/index.php",
-    dataType: "json",
-    data: imageURI,
-    success: function(data) {
-    alert('asdfasdf');
+	  $.ajax({
+    type       : "POST",
+    url        : "http://roman.almic.ee/echo/index.php",
+    crossDomain: true,
+    data       : {username : imageURI},
+    dataType   : 'json',
+    success    : function(response) {
     },
-    error: function(data) {
-        //error handling
+    error      : function() {
+                      
     }
-});
+});  
 
     }
     // A button will call this function
@@ -98,18 +93,14 @@
 	{
 $.ajax({
     type       : "POST",
-    url        : "http://roman.almic.ee/echo",
+    url        : "http://roman.almic.ee/echo/index.php",
     crossDomain: true,
- 
     data       : {username : 'subin', password : 'passwordx'},
     dataType   : 'json',
     success    : function(response) {
-        //console.error(JSON.stringify(response));
-        alert('Works!');
     },
     error      : function() {
-        //console.error("error");
-        alert('Now working!');                  
+                      
     }
 });     
 	}
