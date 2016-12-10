@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
+	 <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript">  
 function uploadFromGallery() {
 
@@ -39,8 +40,21 @@ function win(r) {
 
 function fail(error) {
 }
+function loadData()
+{		
+		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
+      $.each(result, function(i, field){
+        $("#output").append("<div class=\"picHolder\"><img id=\"theImg\" src=\""+field.url+"\" style=\"width:99%;\"/></div>");
+     });
+    });
+ }
+ loadData();
 </script>
 </head>
 <body>
-   <a data-role="button" onClick="uploadFromGallery();">Upload from Gallery</a> 
+
+   <a data-role="button" onClick="loadData();">Load</a> 
+   <div id ="output"></div>
+   <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.jpg" height="40"></a></div>
+   
 </body>
