@@ -12,9 +12,13 @@ function uploadFromGallery() {
 
     navigator.camera.getPicture(uploadPhoto,
                                 function(message) { alert('get picture failed'); },
-                                { quality: 50, 
+                                { quality: 75, 
                                 destinationType: navigator.camera.DestinationType.DATA_URL,
-                                sourceType: navigator.camera.PictureSourceType.CAMERA}
+                                sourceType: navigator.camera.PictureSourceType.CAMERA,
+								targetWidth: 600,
+								encodingType: Camera.EncodingType.PNG,
+								correctOrientation: true
+								}
                                 );
 
 }
@@ -42,6 +46,8 @@ function fail(error) {
 }
 function loadData()
 {		
+$("#output").html("");
+
 		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
       $.each(result, function(i, field){
         $("#output").append("<div class=\"picHolder\"><img id=\"theImg\" src=\""+field.url+"\" style=\"width:99%;\"/></div>");

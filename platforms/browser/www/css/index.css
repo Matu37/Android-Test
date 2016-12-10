@@ -46,9 +46,10 @@ body {
     width: 100%;
 	left:50%;
 	margin-left:-20px;
+	
 }
 .picHolder {
-	padding-top:50px;
+	padding-top:2px;
     position: relative;
 	left:10px;
     width: 90%;
