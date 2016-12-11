@@ -37,6 +37,18 @@ $.ajax({
                       
     }
 });
+ loadData();
+}
+
+var myVar;
+
+function myFunction() {
+    myVar = setInterval(update, 3000);
+}
+myFunction();
+function update() {
+loadData();
+
 }
 
 function win(r) {
@@ -46,12 +58,13 @@ function fail(error) {
 }
 function loadData()
 {		
-$("#output").html("");
 
 		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
       $.each(result, function(i, field){
-        $("#output").append("<div class=\"picHolder\"><img id=\"theImg\" src=\""+field.url+"\" style=\"width:99%;\"/></div>");
-     });
+	  if (!document.getElementById(field.id)) {
+        $("#output").prepend("<div class=\"picHolder\"><img id=\""+field.id+"\" src=\""+field.url+"\" style=\"width:99%;\"/ class=\"theImg\"></div>");
+     }
+	 });
     });
  }
  loadData();
@@ -59,8 +72,7 @@ $("#output").html("");
 </head>
 <body>
 
-   <a data-role="button" onClick="loadData();">Load</a> 
    <div id ="output"></div>
-   <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.jpg" height="40"></a></div>
+   <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.png" height="40"></a></div>
    
 </body>
