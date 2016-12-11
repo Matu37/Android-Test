@@ -40,17 +40,6 @@ $.ajax({
  loadData();
 }
 
-var myVar;
-
-function myFunction() {
-    myVar = setInterval(update, 3000);
-}
-myFunction();
-function update() {
-loadData();
-
-}
-
 function win(r) {
 }
 
@@ -72,6 +61,7 @@ function loadData()
 </head>
 <body>
 
+   <a data-role="button" onClick="loadData();">Load</a> 
    <div id ="output"></div>
    <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.png" height="40"></a></div>
    
