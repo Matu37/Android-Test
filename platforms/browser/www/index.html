@@ -7,6 +7,22 @@
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript">  
+	getmessages();
+
+function getmessages(){
+setInterval(function() {
+
+		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
+      $.each(result, function(i, field){
+	  if (!document.getElementById(field.id)) {
+        $("#output").prepend("<div class=\"picHolder\"><img id=\""+field.id+"\" src=\""+field.url+"\" style=\"width:99%;\"/ class=\"theImg\"></div>");
+     }
+	 });
+    });
+}, 30000);
+}
+
+
 function uploadFromGallery() {
 
 
