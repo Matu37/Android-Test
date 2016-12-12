@@ -6,21 +6,16 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="css/index.css">
-	  <body onload="onLoad()">
     <script type="text/javascript">  
-
-
 function uploadFromGallery() {
 
 
     navigator.camera.getPicture(uploadPhoto,
                                 function(message) { alert('get picture failed'); },
-                                { quality: 75, 
+                                { quality: 50, 
                                 destinationType: navigator.camera.DestinationType.DATA_URL,
-                                sourceType: navigator.camera.PictureSourceType.CAMERA,
-								targetWidth: 600,
-								encodingType: Camera.EncodingType.PNG,
-								correctOrientation: true
+                                sourceType: navigator.camera.PictureSourceType.CAMERA
+								
 								}
                                 );
 
@@ -40,7 +35,6 @@ $.ajax({
                       
     }
 });
- loadData();
 }
 
 function win(r) {
@@ -50,33 +44,21 @@ function fail(error) {
 }
 function loadData()
 {		
-console.log("loading");
+$("#output").html("");
+
 		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
       $.each(result, function(i, field){
-	  if (!document.getElementById(field.id)) {
-        $("#output").prepend("<div class=\"picHolder\"><img id=\""+field.id+"\" src=\""+field.url+"\" style=\"width:99%;\"/ class=\"theImg\"></div>");
-     }
-	 });
+        $("#output").append("<div class=\"picHolder\"><img id=\"theImg\" src=\""+field.url+"\" style=\"width:99%;\"/></div>");
+     });
     });
  }
-
-
- function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        loadData();
-    }
-
+ loadData();
 </script>
 </head>
 <body>
 
-   <div id ="reload"><a data-role="button" onClick="loadData();"><img src="img/reload.png" height="40"></a> </div>
+   <a data-role="button" onClick="loadData();">Load</a> 
    <div id ="output"></div>
-   <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.png" height="40"></a></div>
+   <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.jpg" height="40"></a></div>
    
 </body>
