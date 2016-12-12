@@ -7,20 +7,6 @@
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript">  
-	getmessages();
-
-function getmessages(){
-setInterval(function() {
-
-		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
-      $.each(result, function(i, field){
-	  if (!document.getElementById(field.id)) {
-        $("#output").prepend("<div class=\"picHolder\"><img id=\""+field.id+"\" src=\""+field.url+"\" style=\"width:99%;\"/ class=\"theImg\"></div>");
-     }
-	 });
-    });
-}, 30000);
-}
 
 
 function uploadFromGallery() {
@@ -36,7 +22,7 @@ function uploadFromGallery() {
 								correctOrientation: true
 								}
                                 );
-
+loadData();
 }
 
 function uploadPhoto(imageURI) {
@@ -72,12 +58,15 @@ function loadData()
 	 });
     });
  }
- loadData();
+ $( document ).ready(function() {
+    loadData();
+});
+
 </script>
 </head>
 <body>
 
-   <a data-role="button" onClick="loadData();">Load</a> 
+   <div id ="reload"><a data-role="button" onClick="loadData();"><img src="img/reload.png" height="40"></a> </div>
    <div id ="output"></div>
    <div id="take"><a data-role="button" onClick="uploadFromGallery();"><img src="img/take.png" height="40"></a></div>
    

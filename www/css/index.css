@@ -48,6 +48,15 @@ body {
 	margin-left:-20px;
 	
 }
+#reload {
+    position: fixed;
+    top: 0;
+    width: 100%;
+	left:50%;
+	margin-left:-20px;
+	z-index:2;
+	
+}
 .picHolder {
 	padding-top:2px;
     position: relative;
