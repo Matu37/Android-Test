@@ -6,6 +6,7 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	 <script type="text/javascript" src="js/jquery.min.js"></script>
 	 <link rel="stylesheet" type="text/css" href="css/index.css">
+	  <body onload="onLoad()">
     <script type="text/javascript">  
 
 
@@ -22,7 +23,7 @@ function uploadFromGallery() {
 								correctOrientation: true
 								}
                                 );
-loadData();
+
 }
 
 function uploadPhoto(imageURI) {
@@ -49,7 +50,7 @@ function fail(error) {
 }
 function loadData()
 {		
-
+console.log("loading");
 		    $.getJSON("http://naerata.eu/pictu/index.php?do=read",function(result){
       $.each(result, function(i, field){
 	  if (!document.getElementById(field.id)) {
@@ -58,9 +59,17 @@ function loadData()
 	 });
     });
  }
- $( document ).ready(function() {
-    loadData();
-});
+
+
+ function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        loadData();
+    }
 
 </script>
 </head>
